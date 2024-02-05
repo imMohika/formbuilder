@@ -8,6 +8,11 @@ const randomString = () => {
 	return customAlphabet(alphabet);
 };
 
+const randomNumber = () => {
+	return customAlphabet(numbers);
+};
+
 export const random = {
 	string: randomString(),
+	number: randomNumber(),
 };

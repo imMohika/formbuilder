@@ -10,7 +10,6 @@ import {
 } from '#components/client-hints';
 import { getTheme } from '#utils/theme';
 import { getClientHints } from '#utils/get-client-hints';
-import { clientHints } from '#utils/client-hints';
 
 export { metadata } from '#config/site';
 

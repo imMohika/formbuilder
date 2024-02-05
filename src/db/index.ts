@@ -1,13 +1,9 @@
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 
-const client = createClient({ url: 'file:./db.sqlite' });
+export const client = createClient({ url: 'file:./db.sqlite' });
 
-import { titles } from './schema/title';
-
-const schema = {
-	titles,
-};
+import * as schema from './schema';
 
 export const db = drizzle(client, {
 	schema,

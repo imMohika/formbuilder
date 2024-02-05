@@ -3,6 +3,7 @@
 import { useTransition } from 'react';
 import { setTheme } from '#utils/theme';
 import { useClientHints } from '#components/client-hints';
+import { Button } from '#components/ui/button';
 
 export function ThemeSwitcher() {
 	const { theme } = useClientHints();
@@ -14,5 +15,9 @@ export function ThemeSwitcher() {
 		});
 	};
 
-	return <button onClick={() => toggle()}>Theme: {theme}</button>;
+	return (
+		<Button variant={'ghost'} onPress={() => toggle()}>
+			Theme: {theme}
+		</Button>
+	);
 }
