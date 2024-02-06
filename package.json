@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:icons": "tsx ./other/build-icons.ts",
     "start": "next start",
     "lint": "next lint",
     "db:push": "drizzle-kit push:sqlite",
@@ -32,12 +33,15 @@
     "react-aria": "^3.31.1",
     "react-aria-components": "^1.0.1",
     "react-dom": "^18",
+    "react-stately": "^3.29.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.0.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@sly-cli/sly": "^1.8.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -45,10 +49,15 @@
     "drizzle-kit": "^0.20.14",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "execa": "^8.0.1",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.10",
+    "node-html-parser": "^6.1.12",
     "postcss": "^8",
     "prettier": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.7.0",
     "typescript": "^5"
   }
 }

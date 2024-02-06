@@ -10,6 +10,7 @@ import {
 } from '#components/client-hints';
 import { getTheme } from '#utils/theme';
 import { getClientHints } from '#utils/get-client-hints';
+import { iconsSprite } from '#components/icons';
 
 export { metadata } from '#config/site';
 
@@ -32,6 +33,12 @@ export default function RootLayout({
 		<html lang="en" className={`${theme}`}>
 			<head>
 				<ClientHintsCheck />
+				<link
+					rel="preload"
+					as="image"
+					type="image/svg+xml"
+					href={iconsSprite.src}
+				/>
 			</head>
 			<body
 				className={cn(

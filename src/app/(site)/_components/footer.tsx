@@ -37,8 +37,6 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
 						.
 					</p>
 				</div>
-
-				<ThemeSwitcher />
 			</div>
 		</footer>
 	);

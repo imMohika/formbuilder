@@ -4,6 +4,7 @@ import React from 'react';
 import { getAuth } from '#lib/auth';
 import { LogoutButton } from '#components/logout-button';
 import { buttonVariants } from '#components/ui/button';
+import { ThemeSwitcher } from '#components/theme-switcher';
 
 export const Header = async () => {
 	const { user } = await getAuth();
@@ -17,16 +18,19 @@ export const Header = async () => {
 			>
 				FB
 			</p>
-			{isLoggedIn ? (
-				<LogoutButton />
-			) : (
-				<Link
-					href="/login"
-					className={cn(buttonVariants({ variant: 'link' }), cn('px-4'))}
-				>
-					Login
-				</Link>
-			)}
+			<div className={'flex items-center justify-center gap-4'}>
+				<ThemeSwitcher />
+				{isLoggedIn ? (
+					<LogoutButton />
+				) : (
+					<Link
+						href="/login"
+						className={cn(buttonVariants({ variant: 'link' }), cn('px-4'))}
+					>
+						Login
+					</Link>
+				)}
+			</div>
 		</header>
 	);
 };

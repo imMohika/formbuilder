@@ -4,12 +4,13 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { getClientHints } from '#utils/get-client-hints';
 import { clientHints } from '#utils/client-hints';
+import { Theme } from '#utils/theme';
 
 type ClientHintsContext = ReturnType<typeof getClientHints> & { theme: string };
 
 type ClientHintsProviderProps = {
 	userPreferences: ReturnType<typeof getClientHints>;
-	theme: string;
+	theme: Theme;
 	children: React.ReactNode;
 };
 
