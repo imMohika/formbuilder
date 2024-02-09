@@ -23,7 +23,7 @@ const mainWrapperVariants = cva('flex h-full flex-1 flex-col', {
 });
 
 const inputWrapperVariants = cva(
-	'relative inline-flex h-10 min-h-10 w-full rounded-md overflow-hidden border border-border bg-accent/80 shadow-sm transition-all hover:border-accent hover:bg-accent focus-visible:border-accent',
+	'relative inline-flex items-center justify-center h-10 min-h-10 w-full rounded-md overflow-hidden border border-border bg-accent/80 shadow-sm transition-all hover:border-accent hover:bg-accent focus-visible:border-accent',
 	{
 		variants: {
 			labelPosition: {
@@ -40,11 +40,14 @@ const inputWrapperVariants = cva(
 	},
 );
 
-const innerWrapperVariants = cva('inline-flex w-full flex-1items-center', {
-	variants: {},
-});
+const innerWrapperVariants = cva(
+	'inline-flex h-full w-full flex-1items-center',
+	{
+		variants: {},
+	},
+);
 const inputVariants = cva(
-	'h-full w-full bg-transparent px-3 font-normal !outline-none placeholder:text-muted-foreground',
+	'h-full w-full bg-transparent px-3 font-normal !outline-none placeholder:text-muted-foreground dark:[color-scheme:dark]',
 	{
 		variants: {
 			labelPosition: {
@@ -53,6 +56,10 @@ const inputVariants = cva(
 				'outside-top': '',
 				'inside-top': 'pt-4',
 				'inside-bottom': 'pb-4',
+			},
+			hasRight: {
+				true: 'pe-10',
+				false: '',
 			},
 		},
 		defaultVariants: {
@@ -90,16 +97,22 @@ export interface InputProps
 		VariantProps<typeof labelVariants> {
 	label?: string;
 	description?: string;
+	rightSide?: React.ReactNode;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-	({ className, label, description, type, labelPosition, ...props }, ref) => {
+	(
+		{ className, label, description, type, labelPosition, rightSide, ...props },
+		ref,
+	) => {
 		const labelContent = !label ? null : (
 			<Label className={labelVariants({ labelPosition })}>{label}</Label>
 		);
 
 		const isLabelInside =
 			labelPosition === 'inside-bottom' || labelPosition === 'inside-top';
+
+		const hasRight = Boolean(rightSide);
 		return (
 			// base
 			<div className={baseVariants({ labelPosition })}>
@@ -112,12 +125,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						{/*inner wrapper*/}
 						<div className={innerWrapperVariants({})}>
 							<AriaInput
-								className={inputVariants({ labelPosition })}
+								className={inputVariants({ labelPosition, hasRight })}
 								type={type}
 								ref={ref}
 								{...props}
 							/>
 						</div>
+						{hasRight && <div className={'absolute right-2'}>{rightSide}</div>}
 					</div>
 					{description && (
 						<Text slot={'description'} className={descriptionVariants({})}>

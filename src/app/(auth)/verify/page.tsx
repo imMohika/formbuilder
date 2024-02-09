@@ -29,8 +29,6 @@ export default async function VerifyPage({
 			</div>
 
 			<VerifyForm target={target} />
-
-			{/*	TODO: add resend*/}
 		</>
 	);
 }

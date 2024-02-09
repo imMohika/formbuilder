@@ -15,6 +15,7 @@ export const users = sqliteTable(
 			.primaryKey()
 			.$defaultFn(() => random.string()),
 		email: text('email').unique().notNull(),
+		password: text('password'),
 	},
 	user => ({
 		userEmail: uniqueIndex('user_email').on(user.email),
@@ -46,16 +47,28 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
 	}),
 }));
 
+export const verificationCodeTypes = [
+	'onboarding',
+	'reset-password',
+	'signup',
+	'change-email',
+	'2fa',
+] as const;
+export type VerificationCodeType = (typeof verificationCodeTypes)[number];
+
 export const verificationCodes = sqliteTable('verification_codes', {
 	id: text('id')
 		.primaryKey()
 		.$defaultFn(() => random.string()),
-	code: text('code'),
 	userId: text('user_id').references(() => users.id, {
 		onUpdate: 'cascade',
 		onDelete: 'cascade',
 	}),
+
+	code: text('code'),
 	target: text('target').notNull(),
+	type: text('type', { enum: verificationCodeTypes }).notNull(),
+
 	isUsed: integer('is_used', { mode: 'boolean' }).default(false),
 	expiresAt: integer('expires_at').notNull(),
 });

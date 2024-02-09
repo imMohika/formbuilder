@@ -1,9 +1,4 @@
-import { Metadata } from 'next';
 import { LoginForm } from '#app/(auth)/login/login-form';
-
-export const metadata: Metadata = {
-	title: 'Log in',
-};
 
 export default async function LoginPage({
 	searchParams,

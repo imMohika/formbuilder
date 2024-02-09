@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { cn } from '#ui/utils';
 import { buttonVariants } from '#components/ui/button';
 import { ThemeSwitcher } from '#components/theme-switcher';
-import { requireAnonymous } from '#lib/auth';
 import React from 'react';
 
 export default async function AuthLayout({
@@ -10,8 +9,6 @@ export default async function AuthLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	await requireAnonymous();
-
 	return (
 		<div
 			className={
@@ -25,7 +22,7 @@ export default async function AuthLayout({
 					'absolute left-2 top-2 md:left-4 md:top-4',
 				)}
 			>
-				{`< Back`}
+				{`< Back to Home`}
 			</Link>
 
 			<div className={'absolute right-2 top-2'}>

@@ -75,9 +75,20 @@ export const uncachedGetAuth = async () => {
 
 export const getAuth = React.cache(uncachedGetAuth);
 
-export const requireAnonymous = async (redirectTo = '/') => {
+export const requireAnonymous = async (
+	redirectTo = '/',
+	redirectToOnboarding = true,
+) => {
 	const { user } = await getAuth();
 	if (user && user.id) {
 		throw redirect(redirectTo);
 	}
+};
+
+export const requireUser = async (redirectTo = '/login') => {
+	const { user } = await getAuth();
+	if (!user?.id) {
+		throw redirect(redirectTo);
+	}
+	return user;
 };

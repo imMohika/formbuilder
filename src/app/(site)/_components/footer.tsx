@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { cn } from '#ui/utils';
-import { ThemeSwitcher } from '#components/theme-switcher';
 import { siteConfig } from '#config/site';
 
 export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {

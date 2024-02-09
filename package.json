@@ -20,6 +20,11 @@
     "@libsql/client": "^0.4.3",
     "@lucia-auth/adapter-drizzle": "^1.0.0",
     "@lucia-auth/adapter-sqlite": "^3.0.0",
+    "@react-stately/form": "^3.0.0",
+    "@zxcvbn-ts/core": "^3.0.4",
+    "@zxcvbn-ts/language-common": "^3.0.4",
+    "@zxcvbn-ts/language-en": "^3.0.2",
+    "address": "^2.0.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "drizzle-orm": "^0.29.3",
@@ -27,6 +32,7 @@
     "lucia": "^3.0.1",
     "nanoid": "^5.0.5",
     "next": "14.1.0",
+    "next-safe-navigation": "^0.1.1",
     "next-themes": "^0.2.1",
     "oslo": "^1.0.3",
     "react": "^18",
@@ -37,6 +43,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.0.0",
+    "ts-pattern": "^5.0.6",
     "zod": "^3.22.4"
   },
   "devDependencies": {
