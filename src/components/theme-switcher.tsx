@@ -6,7 +6,7 @@ import { useClientHints } from '#components/client-hints';
 import { Button } from '#components/ui/button';
 import { Icon } from '#components/icons';
 
-export function ThemeSwitcher() {
+export function ThemeSwitcher({ size = 'small' }: { size?: 'small' | 'big' }) {
 	const { theme } = useClientHints();
 	const [_, startTransition] = useTransition();
 
@@ -17,17 +17,24 @@ export function ThemeSwitcher() {
 	};
 
 	return (
-		<Button variant={'ghost'} size={'icon'} onPress={() => toggle()}>
-			<Icon
-				name={'sun'}
-				className="rotate-0 scale-100 transition-all duration-500 dark:-rotate-90 dark:scale-0"
-				size={'md'}
-			/>
-			<Icon
-				name={'moon'}
-				className="absolute rotate-90 scale-0 transition-all duration-500 dark:rotate-0 dark:scale-100"
-				size={'md'}
-			/>
+		<Button
+			variant={'ghost'}
+			size={size === 'small' ? 'icon' : 'default'}
+			onPress={() => toggle()}
+		>
+			{size === 'big' && <p>{theme}</p>}
+			<div className={'relative'}>
+				<Icon
+					name={'sun'}
+					className="rotate-0 scale-100 transition-all duration-500 dark:-rotate-90 dark:scale-0"
+					size={'md'}
+				/>
+				<Icon
+					name={'moon'}
+					className="absolute left-0 rotate-90 scale-0 transition-all duration-500 dark:rotate-0 dark:scale-100"
+					size={'md'}
+				/>
+			</div>
 			<span className="sr-only">Toggle theme</span>
 		</Button>
 	);

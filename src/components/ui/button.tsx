@@ -38,13 +38,23 @@ const buttonVariants = cva(
 
 export interface ButtonProps
 	extends React.ComponentProps<typeof AriaButton>,
-		VariantProps<typeof buttonVariants> {}
+		VariantProps<typeof buttonVariants> {
+	unstyled?: boolean;
+}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, ...props }, ref) => {
+	({ className, unstyled = false, variant, size, ...props }, ref) => {
 		return (
 			<AriaButton
-				className={cn(buttonVariants({ variant, size, className }))}
+				className={cn(
+					unstyled
+						? className
+						: buttonVariants({
+								variant,
+								size,
+								className,
+							}),
+				)}
 				ref={ref}
 				{...props}
 			/>
@@ -54,3 +64,58 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };
+
+const buttonGroupVariants = cva(['flex gap-0'], {
+	variants: {
+		orientation: {
+			horizontal:
+				'flex-row [&>*:not(:first-child)]:rounded-s-none [&>*:not(:last-child)]:rounded-e-none',
+			vertical:
+				'flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:last-child)]:rounded-b-none',
+		},
+		outline: {
+			false: '',
+			true: '*:border-input *:border-2',
+		},
+	},
+	compoundVariants: [
+		{
+			outline: true,
+			orientation: 'horizontal',
+			className:
+				'[&>*:last-child]:!border-e-2 [&>*:first-child]:!border-s-2 [&>*:nth-child(even)]:border-x-0 ',
+		},
+		{
+			outline: true,
+			orientation: 'vertical',
+			className:
+				'[&>*:last-child]:!border-b-2 [&>*:first-child]:!border-t-2 [&>*:nth-child(even)]:border-y-0 ',
+		},
+	],
+	defaultVariants: {
+		orientation: 'horizontal',
+		outline: false,
+	},
+});
+
+export interface ButtonGroupProps
+	extends VariantProps<typeof buttonGroupVariants> {
+	className?: string;
+	children: React.ReactNode;
+}
+
+const ButtonGroup = ({
+	className,
+	orientation,
+	outline,
+	children,
+}: ButtonGroupProps) => {
+	return (
+		<div
+			className={cn(buttonGroupVariants({ orientation, outline }), className)}
+		>
+			{children}
+		</div>
+	);
+};
+export { ButtonGroup };

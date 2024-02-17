@@ -3,8 +3,9 @@ import { cn } from '#ui/utils';
 import React from 'react';
 import { getAuth } from '#lib/auth';
 import { LogoutButton } from '#components/logout-button';
-import { buttonVariants } from '#components/ui/button';
+import { ButtonGroup, buttonVariants } from '#components/ui/button';
 import { ThemeSwitcher } from '#components/theme-switcher';
+import { Icon } from '#components/icons';
 
 export const Header = async () => {
 	const { user } = await getAuth();
@@ -18,10 +19,17 @@ export const Header = async () => {
 			>
 				FB
 			</p>
+
 			<div className={'flex items-center justify-center gap-4'}>
 				<ThemeSwitcher />
 				{isLoggedIn ? (
-					<LogoutButton />
+					<ButtonGroup outline>
+						<Link href={'/dashboard'} className={cn(buttonVariants({}))}>
+							<Icon name={'dashboard'} />
+							Dashboard
+						</Link>
+						<LogoutButton variant={'outline'} size={'icon'} iconOnly />
+					</ButtonGroup>
 				) : (
 					<Link
 						href="/login"
