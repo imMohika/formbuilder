@@ -2,7 +2,7 @@
 
 import { Progress } from '#components/ui/progress';
 import React, { useState } from 'react';
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 
 export const ProgressTest = () => {
 	const [progress, setProgress] = useState(0);

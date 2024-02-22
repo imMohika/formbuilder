@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 import { logout } from '#app/(auth)/actions';
 import React, { useTransition } from 'react';
 import { Icon } from '#components/icons';

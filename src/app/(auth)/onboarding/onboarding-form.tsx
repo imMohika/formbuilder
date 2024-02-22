@@ -3,7 +3,7 @@ import { useFormState } from 'react-dom';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { CheckboxField, Form, PasswordField } from '#components/forms';
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 import { onboardingSchema } from '#app/(auth)/schema';
 import { onboarding } from '#app/(auth)/actions';
 import PasswordStrength from '#components/ui/password-strength';

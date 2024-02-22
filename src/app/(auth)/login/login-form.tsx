@@ -5,7 +5,7 @@ import { login } from '#app/(auth)/actions';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { loginSchema } from '#app/(auth)/schema';
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 import { Form, TextField } from '#components/forms';
 
 export const LoginForm = ({ target }: { target?: string }) => {

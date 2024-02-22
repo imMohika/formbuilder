@@ -3,7 +3,7 @@
 import { useTransition } from 'react';
 import { setTheme } from '#utils/theme';
 import { useClientHints } from '#components/client-hints';
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 import { Icon } from '#components/icons';
 
 export function ThemeSwitcher({ size = 'small' }: { size?: 'small' | 'big' }) {

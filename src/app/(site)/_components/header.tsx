@@ -3,7 +3,7 @@ import { cn } from '#ui/utils';
 import React from 'react';
 import { getAuth } from '#lib/auth';
 import { LogoutButton } from '#components/logout-button';
-import { ButtonGroup, buttonVariants } from '#components/ui/button';
+import { ButtonGroup, buttonVariants } from '#components/ui/button/button';
 import { ThemeSwitcher } from '#components/theme-switcher';
 import { Icon } from '#components/icons';
 

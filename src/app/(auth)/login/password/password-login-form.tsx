@@ -4,7 +4,7 @@ import { useFormState } from 'react-dom';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { Form, PasswordField } from '#components/forms';
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 import { passwordLoginSchema } from '#app/(auth)/schema';
 import { passwordLogin } from '#app/(auth)/actions';
 import React from 'react';

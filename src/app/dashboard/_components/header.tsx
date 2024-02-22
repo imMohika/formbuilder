@@ -3,7 +3,7 @@
 import { User } from 'lucia';
 import { ThemeSwitcher } from '#components/theme-switcher';
 import Link from 'next/link';
-import { buttonVariants } from '#components/ui/button';
+import { buttonVariants } from '#components/ui/button/button';
 import { cn } from '#ui/utils';
 import { usePathname } from 'next/navigation';
 import { UserAccount } from '#app/dashboard/_components/user-account';

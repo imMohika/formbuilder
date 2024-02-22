@@ -1,5 +1,5 @@
 import { User } from 'lucia';
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 import { Menu, MenuDropdown, MenuLink, MenuSection } from '#components/ui/menu';
 import { Icon } from '#components/icons';
 import { Separator } from '#components/ui/separator';

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { cn } from '#ui/utils';
-import { buttonVariants } from '#components/ui/button';
+import { buttonVariants } from '#components/ui/button/button';
 import { ThemeSwitcher } from '#components/theme-switcher';
 import React from 'react';
 

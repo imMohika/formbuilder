@@ -5,7 +5,7 @@ import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { createTitle } from '#app/(site)/actions';
 import { createTitleSchema } from '#app/(site)/schema';
-import { Button } from '#components/ui/button';
+import { Button } from '#components/ui/button/button';
 import { Form, TextField } from '#components/forms';
 
 export const CreateTitleForm = () => {
