@@ -7,24 +7,20 @@ export const metadata: Metadata = {
 };
 
 export default async function OnboardingPage() {
-	const user = await requireUser();
+	await requireUser();
 
 	return (
-		<>
-			<div>
-				<h1
-					className={
-						'overflow-hidden overflow-ellipsis whitespace-nowrap text-xl font-semibold tracking-tight'
-					}
-				>
-					Welcome <span className={'font-mono text-lg'}>{user.email}</span>
-				</h1>
-				<p className={'text-sm text-muted-foreground'}>
+		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
+			<div className={'flex flex-col items-center justify-center'}>
+				<h1 className={'text-h1'}>Welcome aboard!</h1>
+				<p className={'text-body-md text-muted-foreground'}>
 					Please enter your details
 				</p>
 			</div>
 
-			<OnboardingForm />
-		</>
+			<div className={'w-full px-8'}>
+				<OnboardingForm />
+			</div>
+		</div>
 	);
 }

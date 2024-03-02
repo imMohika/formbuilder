@@ -17,18 +17,18 @@ export default async function VerifyPage({
 	}
 
 	return (
-		<>
-			<div>
-				<h1 className={'text-xl font-semibold tracking-tight'}>
-					Check your email
-				</h1>
-				<p className={'text-sm text-muted-foreground'}>
+		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
+			<div className={'flex flex-col items-center justify-center'}>
+				<h1 className={'text-h1'}>Check your email</h1>
+				<p className={'text-body-md text-muted-foreground'}>
 					{`We've sent a code to: `}
 					<span className={'font-mono'}>{target}</span>
 				</p>
 			</div>
 
-			<VerifyForm target={target} />
-		</>
+			<div className={'w-full px-8'}>
+				<VerifyForm target={target} />
+			</div>
+		</div>
 	);
 }

@@ -28,14 +28,22 @@ export default async function AuthLayout({
 			<div className={'absolute right-2 top-2'}>
 				<ThemeSwitcher />
 			</div>
-			<div className={'flex w-1/2 justify-center'}>
+			<div
+				className={
+					'relative flex min-h-full w-full max-w-lg items-center justify-center px-4 py-32'
+				}
+			>
 				<div
 					className={
-						'flex w-full flex-col  gap-4 rounded-lg border border-border p-12'
+						'absolute left-0 top-0 h-full w-0.5 -translate-x-full bg-gradient-to-b from-transparent via-border to-transparent'
 					}
-				>
-					{children}
-				</div>
+				/>
+				{children}
+				<div
+					className={
+						'absolute right-0 top-0 h-full w-0.5 translate-x-full bg-gradient-to-b from-transparent via-border to-transparent'
+					}
+				/>
 			</div>
 		</div>
 	);

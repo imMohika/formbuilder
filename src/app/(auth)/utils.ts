@@ -2,6 +2,7 @@ import { db } from '#db';
 import { eq } from 'drizzle-orm';
 import { User, users } from '#db/schema/auth';
 import { auth } from '#lib/auth';
+import { getInviteCodeId } from '#utils/invite-code';
 
 export const getUser = async (email: string, userId?: string | null) => {
 	if (userId) {
@@ -16,10 +17,12 @@ export const getUser = async (email: string, userId?: string | null) => {
 };
 
 export const createUser = async (email: string) => {
+	const inviteCodeId = getInviteCodeId();
 	const newUser = await db
 		.insert(users)
 		.values({
 			email,
+			invitedById: inviteCodeId,
 		})
 		.returning()
 		.then(t => t[0]);

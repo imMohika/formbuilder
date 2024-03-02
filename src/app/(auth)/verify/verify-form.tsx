@@ -1,13 +1,12 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { verify } from '#app/(auth)/actions';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { verifySchema } from '#app/(auth)/schema';
-import { Button, buttonVariants } from '#components/ui/button/button';
+import { Button } from '#components/ui/button/button';
 import { Form, TextField } from '#components/forms';
-import Link from 'next/link';
+import { verify } from '#app/(auth)/verify/action';
 
 export const VerifyForm = ({ target }: { target: string }) => {
 	const [lastResult, action] = useFormState(verify, undefined);
@@ -40,18 +39,7 @@ export const VerifyForm = ({ target }: { target: string }) => {
 
 				<input {...getInputProps(fields.target, { type: 'hidden' })} />
 
-				<div>
-					<Button type={'submit'}>Verify</Button>
-					<Link
-						href={{
-							pathname: '/login',
-							search: `target=${encodeURIComponent(target)}`,
-						}}
-						className={buttonVariants({ variant: 'link' })}
-					>
-						Resend Code
-					</Link>
-				</div>
+				<Button type={'submit'}>Verify</Button>
 			</div>
 		</Form>
 	);

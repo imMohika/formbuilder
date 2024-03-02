@@ -1,12 +1,13 @@
-import { LoginForm } from '#app/(auth)/login/login-form';
 import Link from 'next/link';
-import { buttonVariants } from '#components/ui/button/button';
 import { cn } from '#ui/utils';
+import { buttonVariants } from '#components/ui/button/button';
+import { SignupForm } from '#app/(auth)/signup/signup-form';
+import { env } from '#utils/env';
 import { requireAnonymous } from '#lib/auth';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'Login',
+	title: 'Signup',
 };
 
 export default async function LoginPage({
@@ -16,25 +17,34 @@ export default async function LoginPage({
 }) {
 	await requireAnonymous();
 	const target = searchParams['target'];
+	const inviteCode = searchParams['invite-code'];
+	const inviteOnly = env.INVITE_ONLY;
+
 	return (
 		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
 			<div className={'flex flex-col items-center justify-center'}>
-				<h1 className={'text-h1'}>Welcome back</h1>
+				<h1 className={'text-h1'}>Welcome</h1>
 				<p className={'text-body-sm text-muted-foreground'}>
-					Please enter your details
+					Please enter your details to create a new account
 				</p>
 			</div>
 
 			<div className={'w-full px-8'}>
-				<LoginForm target={target} />
+				<SignupForm
+					target={target}
+					inviteCode={inviteCode}
+					inviteOnly={inviteOnly}
+				/>
 			</div>
 
 			<div className={'flex items-center justify-center gap-2'}>
-				<p className={'text-muted-foreground'}>New here?</p>
+				<span className={'text-muted-foreground'}>
+					Already have an account?
+				</span>
 
 				<Link
 					href={{
-						pathname: 'signup',
+						pathname: 'login',
 						query: {
 							target,
 						},
@@ -44,7 +54,7 @@ export default async function LoginPage({
 						'text-muted-foreground',
 					)}
 				>
-					Create an account
+					Log in
 				</Link>
 			</div>
 		</div>

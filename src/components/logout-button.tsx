@@ -1,9 +1,9 @@
 'use client';
 
 import { Button } from '#components/ui/button/button';
-import { logout } from '#app/(auth)/actions';
 import React, { useTransition } from 'react';
 import { Icon } from '#components/icons';
+import { logout } from '#app/(auth)/logout/action';
 
 export interface LogoutButtonProps extends React.ComponentProps<typeof Button> {
 	iconOnly?: boolean;

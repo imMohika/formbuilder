@@ -5,9 +5,9 @@ import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { CheckboxField, Form, PasswordField } from '#components/forms';
 import { Button } from '#components/ui/button/button';
 import { onboardingSchema } from '#app/(auth)/schema';
-import { onboarding } from '#app/(auth)/actions';
 import PasswordStrength from '#components/ui/password-strength';
 import React from 'react';
+import { onboarding } from '#app/(auth)/onboarding/action';
 
 export const OnboardingForm = () => {
 	const [lastResult, action] = useFormState(onboarding, undefined);

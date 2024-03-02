@@ -4,7 +4,7 @@ import {
 	integer,
 	uniqueIndex,
 } from 'drizzle-orm/sqlite-core';
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import { random } from '#lib/random';
 import { titles } from '#db/schema/title';
 
@@ -16,16 +16,26 @@ export const users = sqliteTable(
 			.$defaultFn(() => random.string()),
 		email: text('email').unique().notNull(),
 		password: text('password'),
+
+		invitedById: text('invited_by_id'),
 	},
 	user => ({
 		userEmail: uniqueIndex('user_email').on(user.email),
 	}),
 );
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ one, many }) => ({
 	session: many(sessions),
 	verificationCode: many(verificationCodes),
 	titles: many(titles),
+	inviteCodeOwner: many(inviteCodes, {
+		relationName: 'invite_code_owner',
+	}),
+	invitedBy: one(inviteCodes, {
+		fields: [users.invitedById],
+		references: [inviteCodes.id],
+		relationName: 'invite_code_invitee',
+	}),
 }));
 
 export type User = typeof users.$inferSelect;
@@ -66,7 +76,7 @@ export const verificationCodes = sqliteTable('verification_codes', {
 	}),
 
 	code: text('code'),
-	target: text('target').notNull(),
+	target: text('target').notNull().unique(),
 	type: text('type', { enum: verificationCodeTypes }).notNull(),
 
 	isUsed: integer('is_used', { mode: 'boolean' }).default(false),
@@ -82,3 +92,30 @@ export const verificationCodesRelations = relations(
 		}),
 	}),
 );
+
+export const inviteCodes = sqliteTable('invite_Codes', {
+	id: text('id')
+		.primaryKey()
+		.$defaultFn(() => random.string()),
+
+	code: text('code').notNull(),
+	isRevoked: integer('is_revoked', { mode: 'boolean' }).default(false),
+	ownerId: text('owner_id')
+		.notNull()
+		.references(() => users.id),
+
+	createdAt: integer('created_at', { mode: 'timestamp' })
+		.default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
+});
+
+export const inviteCodesRelations = relations(inviteCodes, ({ one, many }) => ({
+	owner: one(users, {
+		fields: [inviteCodes.ownerId],
+		references: [users.id],
+		relationName: 'invite_code_owner',
+	}),
+	invitees: many(users, {
+		relationName: 'invite_code_invitee',
+	}),
+}));

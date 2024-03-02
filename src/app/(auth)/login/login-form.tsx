@@ -1,12 +1,19 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { login } from '#app/(auth)/actions';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { loginSchema } from '#app/(auth)/schema';
-import { Button } from '#components/ui/button/button';
-import { Form, TextField } from '#components/forms';
+import { Button, buttonVariants } from '#components/ui/button/button';
+import {
+	CheckboxField,
+	Form,
+	PasswordField,
+	TextField,
+} from '#components/forms';
+import React from 'react';
+import Link from 'next/link';
+import { login } from '#app/(auth)/login/action';
 
 export const LoginForm = ({ target }: { target?: string }) => {
 	const [lastResult, action] = useFormState(login, undefined);
@@ -33,22 +40,29 @@ export const LoginForm = ({ target }: { target?: string }) => {
 				<TextField
 					label="Email"
 					autoComplete="email"
-					autoFocus
 					{...getInputProps(fields.email, { type: 'email' })}
 				/>
-				<div>
-					<Button type="submit" name="intent" value="request-code">
-						Login
-					</Button>
-					<Button
-						type="submit"
-						variant={'link'}
-						name={'intent'}
-						value={'verify-code'}
+
+				<PasswordField
+					label={'Password'}
+					autoComplete={'new-password'}
+					{...getInputProps(fields.password, { type: 'password' })}
+				/>
+
+				<div className={'flex justify-between'}>
+					{/* TODO*/}
+					<CheckboxField label={'Remember me'} isDisabled />
+					<Link
+						className={buttonVariants({ variant: 'ghost', size: 'sm' })}
+						href={'/forgor-password'}
 					>
-						Already have a code?
-					</Button>
+						Forgot password?
+					</Link>
 				</div>
+
+				<Button type="submit" name="intent" value="request-code">
+					Login
+				</Button>
 			</div>
 		</Form>
 	);
