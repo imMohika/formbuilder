@@ -11,9 +11,9 @@ export default async function OnboardingPage() {
 
 	return (
 		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
-			<div className={'flex flex-col items-center justify-center'}>
-				<h1 className={'text-h1'}>Welcome aboard!</h1>
-				<p className={'text-body-md text-muted-foreground'}>
+			<div>
+				<h1 className={'text-center text-h1'}>Welcome aboard!</h1>
+				<p className={'text-center text-body-md text-muted-foreground'}>
 					Please enter your details
 				</p>
 			</div>

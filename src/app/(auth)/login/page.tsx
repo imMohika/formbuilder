@@ -18,9 +18,9 @@ export default async function LoginPage({
 	const target = searchParams['target'];
 	return (
 		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
-			<div className={'flex flex-col items-center justify-center'}>
-				<h1 className={'text-h1'}>Welcome back</h1>
-				<p className={'text-body-sm text-muted-foreground'}>
+			<div>
+				<h1 className={'text-center text-h1'}>Welcome back</h1>
+				<p className={'text-center text-body-sm text-muted-foreground'}>
 					Please enter your details
 				</p>
 			</div>

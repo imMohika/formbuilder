@@ -17,7 +17,7 @@ export async function saveOtp(
 ) {
 	const values = {
 		code,
-		expiresAt: createDate(new TimeSpan(1, 'm')).getTime(), // 5 minutes
+		expiresAt: createDate(new TimeSpan(10, 'm')).getTime(),
 		userId,
 		target,
 		type,
@@ -27,8 +27,6 @@ export async function saveOtp(
 		target: verificationCodes.target,
 		set: values,
 	});
-
-	// TODO: send otp to email
 
 	console.log({
 		type,

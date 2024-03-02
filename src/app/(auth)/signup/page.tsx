@@ -22,9 +22,9 @@ export default async function LoginPage({
 
 	return (
 		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
-			<div className={'flex flex-col items-center justify-center'}>
-				<h1 className={'text-h1'}>Welcome</h1>
-				<p className={'text-body-sm text-muted-foreground'}>
+			<div>
+				<h1 className={'text-center text-h1'}>Welcome</h1>
+				<p className={'text-center text-body-sm text-muted-foreground'}>
 					Please enter your details to create a new account
 				</p>
 			</div>

@@ -18,9 +18,9 @@ export default async function VerifyPage({
 
 	return (
 		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
-			<div className={'flex flex-col items-center justify-center'}>
-				<h1 className={'text-h1'}>Check your email</h1>
-				<p className={'text-body-md text-muted-foreground'}>
+			<div>
+				<h1 className={'text-center text-h1'}>Check your email</h1>
+				<p className={'text-center text-body-md text-muted-foreground'}>
 					{`We've sent a code to: `}
 					<span className={'font-mono'}>{target}</span>
 				</p>

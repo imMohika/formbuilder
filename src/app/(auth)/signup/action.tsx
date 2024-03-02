@@ -13,6 +13,8 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { setInviteCodeId } from '#utils/invite-code';
 import { createSession, createUser } from '#app/(auth)/utils';
+import { sendEmail } from '#utils/email';
+import * as E from '@react-email/components';
 
 export const signup = async (prevState: unknown, formDate: FormData) => {
 	const submission = await parseWithZod(formDate, {
@@ -80,6 +82,19 @@ export const signup = async (prevState: unknown, formDate: FormData) => {
 	}
 
 	await saveOtp(otp, null, email, 'signup');
+
+	const response = await sendEmail({
+		to: email,
+		subject: 'Welcome to FormBuilder!',
+		react: <SignupEmail otp={otp} />,
+	});
+
+	if (response.status !== 'success') {
+		submission.reply({
+			formErrors: [response.error.message],
+		});
+	}
+
 	return redirect(verifyUrl.toString());
 };
 
@@ -92,3 +107,20 @@ export const handleSignupVerification = async (target: string) => {
 	url.searchParams.set('target', target);
 	return redirect(url.toString());
 };
+
+async function SignupEmail({ otp }: { otp: string }) {
+	return (
+		<E.Html lang="en" dir="ltr">
+			<E.Container>
+				<h1>
+					<E.Text>Welcome to Form Builder!</E.Text>
+				</h1>
+				<p>
+					<E.Text>
+						Here's your verification code: <strong>{otp}</strong>
+					</E.Text>
+				</p>
+			</E.Container>
+		</E.Html>
+	);
+}
