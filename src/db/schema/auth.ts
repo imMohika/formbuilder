@@ -93,7 +93,7 @@ export const verificationCodesRelations = relations(
 	}),
 );
 
-export const inviteCodes = sqliteTable('invite_Codes', {
+export const inviteCodes = sqliteTable('invite_codes', {
 	id: text('id')
 		.primaryKey()
 		.$defaultFn(() => random.string()),
