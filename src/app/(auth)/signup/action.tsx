@@ -117,7 +117,7 @@ async function SignupEmail({ otp }: { otp: string }) {
 				</h1>
 				<p>
 					<E.Text>
-						Here's your verification code: <strong>{otp}</strong>
+						{`Here's your verification code:`} <strong>{otp}</strong>
 					</E.Text>
 				</p>
 			</E.Container>

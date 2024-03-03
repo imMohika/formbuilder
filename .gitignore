@@ -37,4 +37,8 @@ next-env.d.ts
 
 .idea
 db.sqlite
+
 /src/tests/fixtures/email/
+.env
+.env.*
+!.env.example

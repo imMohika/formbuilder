@@ -12,6 +12,8 @@ export const env = createEnv({
 			.string()
 			.refine(s => s === 'true' || s === 'false')
 			.transform(s => s === 'true'),
+		DB_URL: z.string().url(),
+		DB_TOKEN: z.string().optional(),
 		RESEND_FROM: z.string().email(),
 		RESEND_API_KEY: z.string(),
 	},
@@ -30,6 +32,8 @@ export const env = createEnv({
 	runtimeEnv: {
 		NODE_ENV: process.env.NODE_ENV,
 		INVITE_ONLY: process.env.INVITE_ONLY,
+		DB_URL: process.env.DB_URL,
+		DB_TOKEN: process.env.DB_TOKEN,
 		RESEND_FROM: process.env.RESEND_FROM,
 		RESEND_API_KEY: process.env.RESEND_API_KEY,
 	},
