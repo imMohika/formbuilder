@@ -13,6 +13,8 @@ const nextConfig = {
 		serverComponentsExternalPackages: ['@node-rs/argon2', '@node-rs/bcrypt'],
 	},
 	webpack: (config, { isServer }) => {
+		config.externals.push('@node-rs/argon2', '@node-rs/bcrypt');
+
 		// check https://github.com/mswjs/examples/pull/101#discussion_r1462254400
 		if (isServer) {
 			if (Array.isArray(config.resolve.alias)) {
