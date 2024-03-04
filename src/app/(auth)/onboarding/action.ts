@@ -4,12 +4,12 @@ import { parseWithZod } from '@conform-to/zod';
 import { onboardingSchema } from '#app/(auth)/schema';
 import { getAuth } from '#lib/auth';
 import { redirect } from 'next/navigation';
-import { Argon2id } from 'oslo/password';
 import { db } from '#db';
 import { users } from '#db/schema/auth';
 import { eq } from 'drizzle-orm';
 import { createSession, getUser } from '#app/(auth)/utils';
 import { cookies } from 'next/headers';
+import * as argon2 from 'argon2';
 
 export const onboarding = async (prevState: unknown, formDate: FormData) => {
 	const submission = await parseWithZod(formDate, {
@@ -30,7 +30,7 @@ export const onboarding = async (prevState: unknown, formDate: FormData) => {
 	}
 
 	const { password, user } = submission.value;
-	const hashedPassword = await new Argon2id().hash(password);
+	const hashedPassword = await argon2.hash(password);
 
 	await db
 		.update(users)
