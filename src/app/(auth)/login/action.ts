@@ -7,9 +7,9 @@ import { db } from '#db';
 import { eq } from 'drizzle-orm';
 import { users } from '#db/schema/auth';
 import { z } from 'zod';
-import { Argon2id } from 'oslo/password';
 import { createSession } from '#app/(auth)/utils';
 import { cookies } from 'next/headers';
+import * as argon2 from 'argon2';
 
 export const login = async (prevState: unknown, formDate: FormData) => {
 	const submission = await parseWithZod(formDate, {
@@ -27,8 +27,7 @@ export const login = async (prevState: unknown, formDate: FormData) => {
 				ctx.addIssue(genericError);
 				return z.NEVER;
 			}
-
-			const isPasswordValid = await new Argon2id().verify(
+			const isPasswordValid = await argon2.verify(
 				existingUser.password,
 				data.password,
 			);
