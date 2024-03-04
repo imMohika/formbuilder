@@ -1,6 +1,11 @@
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
+const zBool = z
+	.string()
+	.refine(s => s === 'true' || s === 'false')
+	.transform(s => s === 'true');
+
 export const env = createEnv({
 	/**
 	 * Specify your server-side environment variables schema here. This way you can ensure the app
@@ -8,14 +13,12 @@ export const env = createEnv({
 	 */
 	server: {
 		NODE_ENV: z.enum(['production', 'development', 'test']),
-		INVITE_ONLY: z
-			.string()
-			.refine(s => s === 'true' || s === 'false')
-			.transform(s => s === 'true'),
+		INVITE_ONLY: zBool,
 		DB_URL: z.string().url(),
 		DB_TOKEN: z.string().optional(),
 		RESEND_FROM: z.string().email(),
 		RESEND_API_KEY: z.string(),
+		DISABLE_MOCKS: zBool.optional().default('false'),
 	},
 
 	/**
@@ -36,6 +39,7 @@ export const env = createEnv({
 		DB_TOKEN: process.env.DB_TOKEN,
 		RESEND_FROM: process.env.RESEND_FROM,
 		RESEND_API_KEY: process.env.RESEND_API_KEY,
+		DISABLE_MOCKS: process.env.DISABLE_MOCKS,
 	},
 
 	/**

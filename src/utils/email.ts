@@ -40,15 +40,33 @@ export async function sendEmail({ react, ...options }: SendEmailArgs) {
 		...(react ? await renderReactEmail(react) : null),
 	};
 
-	const response = await fetch('https://api.resend.com/emails', {
-		method: 'POST',
-		body: JSON.stringify(email),
-		headers: {
-			Authorization: `Bearer ${env.RESEND_API_KEY}`,
-			'Content-Type': 'application/json',
-		},
-	});
-	const data = await response.json();
+	let response;
+	let data;
+	try {
+		response = await fetch('https://api.resend.com/emails', {
+			method: 'POST',
+			body: JSON.stringify(email),
+			headers: {
+				Authorization: `Bearer ${env.RESEND_API_KEY}`,
+				'Content-Type': 'application/json',
+			},
+		});
+		data = await response.json();
+	} catch (e) {
+		console.error({
+			message: 'INTERNAL_SERVER_ERROR',
+			where: 'email/sendEmail',
+			e,
+		});
+		return {
+			status: 'error',
+			error: {
+				name: 'UnknownError',
+				message: 'Unknown Error',
+				statusCode: 500,
+			} satisfies ResendError,
+		} as const;
+	}
 
 	const parsedData = resendSuccessSchema.safeParse(data);
 

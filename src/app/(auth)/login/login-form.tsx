@@ -4,9 +4,10 @@ import { useFormState } from 'react-dom';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { loginSchema } from '#app/(auth)/schema';
-import { Button, buttonVariants } from '#components/ui/button/button';
+import { buttonVariants } from '#components/ui/button/button';
 import {
 	CheckboxField,
+	ErrorList,
 	Form,
 	PasswordField,
 	TextField,
@@ -14,6 +15,7 @@ import {
 import React from 'react';
 import Link from 'next/link';
 import { login } from '#app/(auth)/login/action';
+import { StatusButton } from '#components/ui/status-button';
 
 export const LoginForm = ({ target }: { target?: string }) => {
 	const [lastResult, action] = useFormState(login, undefined);
@@ -60,9 +62,11 @@ export const LoginForm = ({ target }: { target?: string }) => {
 					</Link>
 				</div>
 
-				<Button type="submit" name="intent" value="request-code">
+				<ErrorList errors={form.errors} id={form.errorId} />
+
+				<StatusButton type={'submit'} formStatus={form.status}>
 					Login
-				</Button>
+				</StatusButton>
 			</div>
 		</Form>
 	);

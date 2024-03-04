@@ -1,13 +1,13 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { signupSchema } from '#app/(auth)/schema';
-import { Button } from '#components/ui/button/button';
-import { Form, TextField } from '#components/forms';
+import { ErrorList, Form, TextField } from '#components/forms';
 import React from 'react';
 import { signup } from '#app/(auth)/signup/action';
+import { StatusButton } from '#components/ui/status-button';
 
 export interface SignupFormProps {
 	target?: string;
@@ -57,7 +57,11 @@ export const SignupForm = ({
 					<input {...getInputProps(fields.inviteCode, { type: 'hidden' })} />
 				)}
 
-				<Button type="submit">Submit</Button>
+				<ErrorList errors={form.errors} id={form.errorId} />
+
+				<StatusButton type="submit" formStatus={form.status}>
+					Submit
+				</StatusButton>
 			</div>
 		</Form>
 	);

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Button as AriaButton } from 'react-aria-components';
 import { cn } from '#ui/utils';
+import { ReactNode } from 'react';
 
 const buttonVariants = cva(
 	[
@@ -39,11 +40,12 @@ const buttonVariants = cva(
 export interface ButtonProps
 	extends React.ComponentProps<typeof AriaButton>,
 		VariantProps<typeof buttonVariants> {
+	children?: ReactNode;
 	unstyled?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, unstyled = false, variant, size, ...props }, ref) => {
+	({ children, className, unstyled = false, variant, size, ...props }, ref) => {
 		return (
 			<AriaButton
 				className={cn(
@@ -57,7 +59,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				)}
 				ref={ref}
 				{...props}
-			/>
+			>
+				{children}
+			</AriaButton>
 		);
 	},
 );

@@ -90,7 +90,7 @@ export const signup = async (prevState: unknown, formDate: FormData) => {
 	});
 
 	if (response.status !== 'success') {
-		submission.reply({
+		return submission.reply({
 			formErrors: [response.error.message],
 		});
 	}

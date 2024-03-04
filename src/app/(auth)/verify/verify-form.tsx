@@ -4,9 +4,10 @@ import { useFormState } from 'react-dom';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { verifySchema } from '#app/(auth)/schema';
-import { Button } from '#components/ui/button/button';
-import { Form, TextField } from '#components/forms';
+import { ErrorList, Form, TextField } from '#components/forms';
 import { verify } from '#app/(auth)/verify/action';
+import { StatusButton } from '#components/ui/status-button';
+import React from 'react';
 
 export const VerifyForm = ({ target }: { target: string }) => {
 	const [lastResult, action] = useFormState(verify, undefined);
@@ -39,7 +40,11 @@ export const VerifyForm = ({ target }: { target: string }) => {
 
 				<input {...getInputProps(fields.target, { type: 'hidden' })} />
 
-				<Button type={'submit'}>Verify</Button>
+				<ErrorList errors={form.errors} id={form.errorId} />
+
+				<StatusButton type={'submit'} formStatus={form.status}>
+					Verify
+				</StatusButton>
 			</div>
 		</Form>
 	);

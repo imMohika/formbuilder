@@ -2,12 +2,17 @@
 import { useFormState } from 'react-dom';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
-import { CheckboxField, Form, PasswordField } from '#components/forms';
-import { Button } from '#components/ui/button/button';
+import {
+	CheckboxField,
+	ErrorList,
+	Form,
+	PasswordField,
+} from '#components/forms';
 import { onboardingSchema } from '#app/(auth)/schema';
 import PasswordStrength from '#components/ui/password-strength';
 import React from 'react';
 import { onboarding } from '#app/(auth)/onboarding/action';
+import { StatusButton } from '#components/ui/status-button';
 
 export const OnboardingForm = () => {
 	const [lastResult, action] = useFormState(onboarding, undefined);
@@ -46,7 +51,11 @@ export const OnboardingForm = () => {
 					})}
 				/>
 
-				<Button type={'submit'}>Update</Button>
+				<ErrorList errors={form.errors} id={form.errorId} />
+
+				<StatusButton type={'submit'} formStatus={form.status}>
+					Update
+				</StatusButton>
 			</div>
 		</Form>
 	);

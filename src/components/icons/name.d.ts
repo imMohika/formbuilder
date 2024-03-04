@@ -3,10 +3,12 @@
 export type IconName =
 	| 'avatar'
 	| 'check'
+	| 'cross-1'
 	| 'dashboard'
 	| 'exit'
 	| 'eye-closed'
 	| 'eye-open'
 	| 'gear'
 	| 'moon'
-	| 'sun';
+	| 'sun'
+	| 'update';
