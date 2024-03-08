@@ -99,7 +99,7 @@ export const inviteCodes = sqliteTable('invite_codes', {
 		.primaryKey()
 		.$defaultFn(() => random.string()),
 
-	code: text('code').notNull(),
+	code: text('code').unique().notNull(),
 	isRevoked: integer('is_revoked', { mode: 'boolean' }).default(false),
 	ownerId: text('owner_id')
 		.notNull()

@@ -42,10 +42,24 @@ export interface ButtonProps
 		VariantProps<typeof buttonVariants> {
 	children?: ReactNode;
 	unstyled?: boolean;
+	leftSection?: ReactNode;
+	rightSection?: ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ children, className, unstyled = false, variant, size, ...props }, ref) => {
+	(
+		{
+			children,
+			className,
+			leftSection,
+			rightSection,
+			unstyled = false,
+			variant,
+			size,
+			...props
+		},
+		ref,
+	) => {
 		return (
 			<AriaButton
 				className={cn(
@@ -60,7 +74,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				ref={ref}
 				{...props}
 			>
+				{leftSection}
 				{children}
+				{rightSection}
 			</AriaButton>
 		);
 	},

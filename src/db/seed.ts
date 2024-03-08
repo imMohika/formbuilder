@@ -17,6 +17,7 @@ async function seed() {
 		.insert(users)
 		.values({
 			email: userData.email,
+			slug: userData.slug,
 		})
 		.returning()
 		.then(v => v[0]);

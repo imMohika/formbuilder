@@ -10,7 +10,8 @@ export function createUser() {
 		.enforce(() => faker.internet.email())
 		.toLowerCase()
 		.replace(/[^a-z0-9_]/g, '_');
-	return { email };
+	const slug = faker.internet.userName();
+	return { email, slug };
 }
 
 export async function cleanupDb() {

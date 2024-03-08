@@ -1,16 +1,11 @@
 import { z } from 'zod';
 import { VERIFY_CODE_LENGTH } from '#config/constants';
-import { slugSchema } from '#utils/schema';
+import { inviteCodeSchema, slugSchema } from '#utils/schema';
 
 export const passwordSchema = z
 	.string({ required_error: 'Password is required' })
 	.min(8, 'Password should be at least 8 characters')
 	.max(64, "Password shouldn't be longer than 64 characters");
-
-export const inviteCodeSchema = z
-	.string()
-	.length(6, 'Invalid invite code')
-	.optional();
 
 export const loginSchema = z.object({
 	email: z
@@ -23,7 +18,7 @@ export const signupSchema = z.object({
 	email: z
 		.string({ required_error: 'Email is required' })
 		.email('Email is invalid'),
-	inviteCode: inviteCodeSchema,
+	inviteCode: inviteCodeSchema.optional(),
 });
 
 export const verifySchema = z.object({

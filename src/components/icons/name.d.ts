@@ -3,6 +3,8 @@
 export type IconName =
 	| 'avatar'
 	| 'check'
+	| 'clipboard-copy'
+	| 'copy'
 	| 'cross-1'
 	| 'dashboard'
 	| 'exit'
