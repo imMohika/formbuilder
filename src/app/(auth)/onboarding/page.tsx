@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function OnboardingPage() {
-	await requireUser();
+	const user = await requireUser();
 
 	return (
 		<div className={'flex h-full w-full flex-col justify-center gap-4'}>
@@ -19,7 +19,7 @@ export default async function OnboardingPage() {
 			</div>
 
 			<div className={'w-full px-8'}>
-				<OnboardingForm />
+				<OnboardingForm user={user} />
 			</div>
 		</div>
 	);

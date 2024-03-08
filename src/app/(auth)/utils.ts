@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { User, users } from '#db/schema/auth';
 import { auth } from '#lib/auth';
 import { getInviteCodeId } from '#utils/invite-code';
+import humanId from 'human-id';
 
 export const getUser = async (email: string, userId?: string | null) => {
 	if (userId) {
@@ -16,12 +17,13 @@ export const getUser = async (email: string, userId?: string | null) => {
 	});
 };
 
-export const createUser = async (email: string) => {
+export const createUser = async (email: string, slug: string) => {
 	const inviteCodeId = getInviteCodeId();
 	const newUser = await db
 		.insert(users)
 		.values({
 			email,
+			slug,
 			invitedById: inviteCodeId,
 		})
 		.returning()
@@ -41,4 +43,21 @@ export const createSession = async (user: User) => {
 	const sessionCookie = auth.createSessionCookie(session.id);
 
 	return { session, sessionCookie };
+};
+
+export const createUniqueSlug = async () => {
+	while (true) {
+		const randomSlug = humanId({
+			capitalize: false,
+			separator: '-',
+		});
+
+		const existingSlug = await db.query.users.findFirst({
+			where: eq(users.slug, randomSlug),
+		});
+
+		if (!existingSlug) {
+			return randomSlug;
+		}
+	}
 };

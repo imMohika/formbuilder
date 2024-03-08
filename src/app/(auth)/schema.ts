@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { VERIFY_CODE_LENGTH } from '#config/constants';
+import { slugSchema } from '#utils/schema';
 
 export const passwordSchema = z
 	.string({ required_error: 'Password is required' })
@@ -37,6 +38,7 @@ export const verifySchema = z.object({
 
 export const onboardingSchema = z.object({
 	password: passwordSchema,
+	slug: slugSchema,
 	agreeToTOSAndPrivacyPolicy: z.boolean({
 		required_error: 'You must agree to the terms of service and privacy policy',
 	}),

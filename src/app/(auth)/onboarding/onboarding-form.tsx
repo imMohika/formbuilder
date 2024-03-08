@@ -7,14 +7,16 @@ import {
 	ErrorList,
 	Form,
 	PasswordField,
+	TextField,
 } from '#components/forms';
 import { onboardingSchema } from '#app/(auth)/schema';
 import PasswordStrength from '#components/ui/password-strength';
 import React from 'react';
 import { onboarding } from '#app/(auth)/onboarding/action';
 import { StatusButton } from '#components/ui/status-button';
+import { User } from 'lucia';
 
-export const OnboardingForm = () => {
+export const OnboardingForm = ({ user }: { user: User }) => {
 	const [lastResult, action] = useFormState(onboarding, undefined);
 	const [form, fields] = useForm({
 		id: 'onboarding-form',
@@ -26,6 +28,9 @@ export const OnboardingForm = () => {
 		},
 		constraint: getZodConstraint(onboardingSchema),
 		shouldRevalidate: 'onBlur',
+		defaultValue: {
+			slug: user.slug,
+		},
 	});
 
 	return (
@@ -35,6 +40,11 @@ export const OnboardingForm = () => {
 			{...getFormProps(form)}
 		>
 			<div className={'flex flex-col gap-4'}>
+				<TextField
+					label={'Slug'}
+					{...getInputProps(fields.slug, { type: 'text' })}
+				/>
+
 				<PasswordField
 					label={'Password'}
 					autoComplete={'new-password'}

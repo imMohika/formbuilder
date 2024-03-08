@@ -18,6 +18,7 @@ export const users = sqliteTable(
 		password: text('password'),
 
 		invitedById: text('invited_by_id'),
+		slug: text('slug').notNull(),
 	},
 	user => ({
 		userEmail: uniqueIndex('user_email').on(user.email),

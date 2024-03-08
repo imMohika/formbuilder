@@ -12,7 +12,7 @@ import { getBaseUrl } from '#utils/misc';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { setInviteCodeId } from '#utils/invite-code';
-import { createSession, createUser } from '#app/(auth)/utils';
+import { createSession, createUniqueSlug, createUser } from '#app/(auth)/utils';
 import { sendEmail } from '#utils/email';
 import * as E from '@react-email/components';
 
@@ -99,7 +99,8 @@ export const signup = async (prevState: unknown, formDate: FormData) => {
 };
 
 export const handleSignupVerification = async (target: string) => {
-	const user = await createUser(target);
+	const randomSlug = await createUniqueSlug();
+	const user = await createUser(target, randomSlug);
 	const { sessionCookie } = await createSession(user);
 	cookies().set(sessionCookie);
 

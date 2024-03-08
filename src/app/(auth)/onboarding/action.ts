@@ -7,17 +7,30 @@ import { redirect } from 'next/navigation';
 import { Argon2id } from 'oslo/password';
 import { db } from '#db';
 import { users } from '#db/schema/auth';
-import { eq } from 'drizzle-orm';
+import { and, eq, not } from 'drizzle-orm';
 import { createSession, getUser } from '#app/(auth)/utils';
 import { cookies } from 'next/headers';
+import { z } from 'zod';
 
 export const onboarding = async (prevState: unknown, formDate: FormData) => {
 	const submission = await parseWithZod(formDate, {
-		schema: onboardingSchema.transform(async data => {
+		schema: onboardingSchema.transform(async (data, ctx) => {
 			// redirect user to /login if they are not logged in (or session expired)
 			const { user } = await getAuth();
 			if (!user) {
 				redirect('/login');
+			}
+
+			const existingSlug = await db.query.users.findFirst({
+				where: and(eq(users.slug, data.slug), not(eq(users.id, user.id))),
+			});
+			if (existingSlug) {
+				ctx.addIssue({
+					path: ['slug'],
+					code: z.ZodIssueCode.custom,
+					message: 'Slug is already taken',
+				});
+				return z.NEVER;
 			}
 
 			return { ...data, user };
@@ -29,13 +42,14 @@ export const onboarding = async (prevState: unknown, formDate: FormData) => {
 		return submission.reply();
 	}
 
-	const { password, user } = submission.value;
+	const { password, user, slug } = submission.value;
 	const hashedPassword = await new Argon2id().hash(password);
 
 	await db
 		.update(users)
 		.set({
 			password: hashedPassword,
+			slug,
 		})
 		.where(eq(users.id, user.id));
 

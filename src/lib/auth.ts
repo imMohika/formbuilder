@@ -17,6 +17,7 @@ const adapter = new DrizzleSQLiteAdapter(
 export const auth = new Lucia(adapter, {
 	getUserAttributes: (user: any) => ({
 		email: user.email,
+		slug: user.slug,
 	}),
 	sessionCookie: {
 		// sets cookies with super long expiration since Next.js doesn't allow Lucia to extend cookie expiration when rendering pages.
@@ -35,6 +36,7 @@ declare module 'lucia' {
 		Lucia: Auth;
 		DatabaseUserAttributes: {
 			email: string;
+			slug: string;
 		};
 	}
 }

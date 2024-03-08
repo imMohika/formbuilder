@@ -11,7 +11,7 @@ export const StatusButton = React.forwardRef<
 	ButtonProps & {
 		formStatus: 'success' | 'error' | undefined;
 	}
->(({ formStatus, children, ...props }, ref) => {
+>(({ formStatus, isDisabled, children, ...props }, ref) => {
 	const { pending } = useFormStatus();
 
 	const companion = {
@@ -34,7 +34,7 @@ export const StatusButton = React.forwardRef<
 	}[pending ? 'pending' : formStatus ?? 'idle'];
 
 	return (
-		<Button ref={ref} isDisabled={pending} {...props}>
+		<Button ref={ref} isDisabled={pending || isDisabled} {...props}>
 			{children}
 			{companion}
 		</Button>
