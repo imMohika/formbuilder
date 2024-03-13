@@ -8,6 +8,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	experimental: {
 		instrumentationHook: true,
+		swcPlugins: [['@swc-jotai/react-refresh', {}]],
 	},
 	webpack: (config, { isServer }) => {
 		// Prevent dependencies from the getting bundled

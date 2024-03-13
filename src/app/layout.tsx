@@ -11,6 +11,7 @@ import {
 import { getTheme } from '#utils/theme';
 import { getClientHints } from '#utils/get-client-hints';
 import { iconsSprite } from '#components/icons';
+import { Provider as JotaiProvider } from 'jotai';
 
 export { metadata } from '#config/site';
 
@@ -30,28 +31,30 @@ export default function RootLayout({
 	const theme = getTheme() || userPreferences.colorScheme;
 
 	return (
-		<html lang="en" className={`${theme}`}>
-			<head>
-				<ClientHintsCheck />
-				<link
-					rel="preload"
-					as="image"
-					type="image/svg+xml"
-					href={iconsSprite.src}
-				/>
-			</head>
-			<body
-				className={cn(
-					'min-h-screen bg-background font-sans text-foreground antialiased',
-					fontSans.variable,
-					fontMono.variable,
-				)}
-			>
-				<ClientHintsProvider userPreferences={userPreferences} theme={theme}>
-					{children}
-					<TailwindIndicator />
-				</ClientHintsProvider>
-			</body>
-		</html>
+		<JotaiProvider>
+			<html lang="en" className={`${theme}`}>
+				<head>
+					<ClientHintsCheck />
+					<link
+						rel="preload"
+						as="image"
+						type="image/svg+xml"
+						href={iconsSprite.src}
+					/>
+				</head>
+				<body
+					className={cn(
+						'min-h-screen bg-background font-sans text-foreground antialiased',
+						fontSans.variable,
+						fontMono.variable,
+					)}
+				>
+					<ClientHintsProvider userPreferences={userPreferences} theme={theme}>
+						{children}
+						<TailwindIndicator />
+					</ClientHintsProvider>
+				</body>
+			</html>
+		</JotaiProvider>
 	);
 }

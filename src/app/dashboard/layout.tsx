@@ -14,11 +14,9 @@ export default async function DashboardLayout({
 	const user = await requireUser();
 
 	return (
-		<div>
+		<div className={'flex h-screen w-full flex-col gap-4'}>
 			<Header user={user} />
-			<div>
-				<main className={'p-4'}>{children}</main>
-			</div>
+			<main className={'flex-1 px-4'}>{children}</main>
 		</div>
 	);
 }

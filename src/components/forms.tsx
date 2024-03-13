@@ -5,7 +5,7 @@ import {
 	TextField as AriaTextField,
 	TextFieldProps as AriaTextFieldProps,
 } from 'react-aria-components';
-import { Input } from '#components/ui/input';
+import { Input, InputCustomProps, InputProps } from '#components/ui/input';
 import { Checkbox, CheckboxProps } from '#components/ui/checkbox';
 import { PasswordInput } from '#components/ui/password-input';
 
@@ -14,12 +14,18 @@ export { Form } from 'react-aria-components';
 export interface TextFieldProps extends AriaTextFieldProps {
 	label?: string;
 	description?: string;
+	inputProps?: InputProps;
 }
 
-export const TextField = ({ label, description, ...props }: TextFieldProps) => {
+export const TextField = ({
+	label,
+	description,
+	inputProps,
+	...props
+}: TextFieldProps) => {
 	return (
 		<AriaTextField {...props}>
-			<Input label={label} description={description} />
+			<Input label={label} description={description} {...inputProps} />
 			<FieldError className={'text-sm text-foreground-destructive'} />
 		</AriaTextField>
 	);

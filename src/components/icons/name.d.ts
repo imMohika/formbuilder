@@ -12,5 +12,6 @@ export type IconName =
 	| 'eye-open'
 	| 'gear'
 	| 'moon'
+	| 'plus'
 	| 'sun'
 	| 'update';

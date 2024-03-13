@@ -36,6 +36,7 @@
     "drizzle-orm": "^0.29.3",
     "geist": "^1.2.1",
     "human-id": "^4.1.1",
+    "jotai": "^2.7.0",
     "lucia": "^3.0.1",
     "nanoid": "^5.0.5",
     "next": "14.1.0",
@@ -51,7 +52,8 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "^1.0.0",
     "ts-pattern": "^5.0.6",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
@@ -70,6 +72,7 @@
     "@storybook/nextjs": "^7.6.16",
     "@storybook/react": "^7.6.16",
     "@storybook/test": "^7.6.16",
+    "@swc-jotai/react-refresh": "^0.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
