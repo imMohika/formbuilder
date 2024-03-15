@@ -1,5 +1,6 @@
 import { Button } from '#components/ui/button/button';
 import { Icon } from '#components/icons';
+import React from 'react';
 
 export interface ThemeSwitcherButtonProps {
 	size?: 'small' | 'big';
@@ -7,11 +8,10 @@ export interface ThemeSwitcherButtonProps {
 	theme: string;
 }
 
-export const ThemeSwitcherButton = ({
-	size = 'small',
-	toggle,
-	theme,
-}: ThemeSwitcherButtonProps) => {
+const ThemeSwitcherButton = React.forwardRef<
+	React.ComponentRef<typeof Button>,
+	ThemeSwitcherButtonProps
+>(({ size = 'small', toggle, theme }, ref) => {
 	return (
 		<Button
 			variant={'ghost'}
@@ -19,6 +19,7 @@ export const ThemeSwitcherButton = ({
 			onPress={() => toggle()}
 			className={'group'}
 			data-theme={theme}
+			ref={ref}
 		>
 			{size === 'big' && <p>{theme}</p>}
 			<div className={'relative'}>
@@ -36,4 +37,6 @@ export const ThemeSwitcherButton = ({
 			<span className="sr-only">Toggle theme</span>
 		</Button>
 	);
-};
+});
+ThemeSwitcherButton.displayName = 'ThemeSwicher';
+export { ThemeSwitcherButton };

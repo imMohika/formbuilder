@@ -75,3 +75,9 @@
         --ring: 217.2 32.6% 60%;
     }
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}

@@ -5,7 +5,7 @@ import {
 	TextField as AriaTextField,
 	TextFieldProps as AriaTextFieldProps,
 } from 'react-aria-components';
-import { Input, InputCustomProps, InputProps } from '#components/ui/input';
+import { Input, InputProps } from '#components/ui/input';
 import { Checkbox, CheckboxProps } from '#components/ui/checkbox';
 import { PasswordInput } from '#components/ui/password-input';
 

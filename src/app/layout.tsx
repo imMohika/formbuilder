@@ -8,10 +8,12 @@ import {
 	ClientHintsCheck,
 	ClientHintsProvider,
 } from '#components/client-hints';
-import { getTheme } from '#utils/theme';
 import { getClientHints } from '#utils/get-client-hints';
 import { iconsSprite } from '#components/icons';
 import { Provider as JotaiProvider } from 'jotai';
+import { ThemeProvider, useTheme } from '#components/theme/theme-provider';
+import { getTheme } from '#components/theme/utils';
+import { getServerTheme } from '#components/theme/actions';
 
 export { metadata } from '#config/site';
 
@@ -22,13 +24,14 @@ export const viewport: Viewport = {
 	],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
 	const userPreferences = getClientHints();
-	const theme = getTheme() || userPreferences.colorScheme;
+	const serverTheme = await getServerTheme();
+	const theme = serverTheme || userPreferences.colorScheme;
 
 	return (
 		<JotaiProvider>
@@ -50,8 +53,10 @@ export default function RootLayout({
 					)}
 				>
 					<ClientHintsProvider userPreferences={userPreferences} theme={theme}>
-						{children}
-						<TailwindIndicator />
+						<ThemeProvider defaultTheme={theme}>
+							{children}
+							<TailwindIndicator />
+						</ThemeProvider>
 					</ClientHintsProvider>
 				</body>
 			</html>
